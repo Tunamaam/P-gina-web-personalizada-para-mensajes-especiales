@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalVisualEffect = document.querySelector('.final-visual-effect'); // Nuevo elemento para el efecto final
     
     // --- Parámetros de la página (puedes dejarlos fijos para probar localmente) ---
-    const nombre = getUrlParameter('nombre') || 'Mi Zayrita Hermosa';
+    const nombre = getUrlParameter('nombre') || 'Mi Ronal Precioso';
     const mensaje = getUrlParameter('mensaje') || '¡Eres mi universo, mi más grande sueño!';
-    const tuNombre = getUrlParameter('tuNombre') || 'Tu Brandom';
+    const tuNombre = getUrlParameter('tuNombre') || 'Tu bebe Brandom';
     const musicaUrl = getUrlParameter('musica') || 'assets/music/tu_cancion.mp3'; // <-- ¡Tu MP3 local o URL pública!
     const animacionParejaUrl = getUrlParameter('animacionPareja') || 'assets/animations/mi_pareja_animada.json'; // <-- ¡Tu JSON local o URL pública!
     const corazonColor = getUrlParameter('corazonColor') || '#FF69B4'; // Color base de corazón (rosa)
