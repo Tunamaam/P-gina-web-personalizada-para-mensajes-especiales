@@ -1,0 +1,526 @@
+:root {
+    --primary-bg-light: #FFD7E0; /* Rosa pastel */
+    --primary-bg-dark: #FFB6C1; /* Rosa un poco más oscuro */
+    --secondary-accent: #FF69B4; /* Rosa fuerte/hot pink */
+    --tertiary-accent: #87CEEB; /* Azul cielo para detalles */
+    --text-main: #FFFFFF; /* Blanco */
+    --text-shadow-color: rgba(0, 0, 0, 0.85); /* Sombra más oscura */
+    --container-bg-alpha: rgba(0, 0, 0, 0.75); /* Fondo oscuro más opaco */
+    --glow-color: #ffe4e1; /* Rosa muy claro para el brillo */
+    --button-yes-color: #4CAF50; /* Verde vibrante */
+    --button-no-color: #F44336; /* Rojo intenso */
+    --final-message-glow: #FFDAB9; /* Melocotón claro para brillo extra */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Muy importante para evitar scroll en móviles */
+    font-family: 'Playfair Display', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-bg-light); /* Fallback */
+    color: var(--text-main);
+    position: relative;
+    transform: scale(1.1); /* Inicio para efecto zoom in más dramático */
+    animation: initialZoomIn 3s ease-out forwards; /* Más lento y suave */
+}
+
+@keyframes initialZoomIn {
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Animación de fondo con degradado que respira y más colores */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #FFB6C1 0%, #FF69B4 25%, #E66465 50%, #9198E5 75%, #87CEEB 100%);
+    background-size: 500% 500%; /* Tamaño más grande para movimiento extra suave y profundo */
+    animation: gradientShift 35s ease infinite alternate; /* Más lento y alterno */
+    z-index: 0;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.container {
+    text-align: center;
+    padding: 60px; /* Más padding para un efecto más grande */
+    background: var(--container-bg-alpha);
+    border-radius: 40px; /* Bordes aún más suaves */
+    box-shadow: 0 20px 70px var(--text-shadow-color); /* Sombra más pronunciada */
+    backdrop-filter: blur(18px); /* Desenfoque más intenso */
+    -webkit-backdrop-filter: blur(18px);
+    border: 4px solid rgba(255, 255, 255, 0.7); /* Borde más visible y brillante */
+    z-index: 10;
+    max-width: 90%; /* Ajuste para móviles */
+    width: 100%; /* Ocupa el ancho disponible */
+    box-sizing: border-box; /* Incluye padding y border en el ancho */
+    position: relative;
+    opacity: 0;
+    transform: translateY(70px) scale(0.8);
+    animation: fadeInScaleUp 2s ease-out forwards; /* Animación de entrada más larga */
+    animation-delay: 1.5s; /* Retraso para que el fondo y zoom empiecen */
+}
+
+@keyframes fadeInScaleUp {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 6em; /* ¡Aún más gigante! */
+    margin-bottom: 35px;
+    text-shadow: 7px 7px 14px var(--text-shadow-color);
+    color: var(--text-main);
+    animation: textGlow 1.8s ease-in-out infinite alternate; /* Brillo más rápido */
+    line-height: 1.2; /* Espaciado entre líneas para mejor lectura */
+}
+
+p {
+    font-size: 2.8em; /* También más grande */
+    margin-top: 0;
+    text-shadow: 5px 5px 10px var(--text-shadow-color);
+    font-weight: 400;
+}
+
+/* Animación de escritura para el texto principal */
+.animated-text span, .animated-text-question span {
+    opacity: 0;
+    animation: revealText 0.025s forwards; /* ¡Máxima velocidad para el efecto sorpresa! */
+}
+@keyframes revealText {
+    to { opacity: 1; }
+}
+
+/* Contenedores de elementos flotantes */
+.heart-rain-container, .particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.heart, .particle {
+    position: absolute;
+    font-size: 50px; /* Corazones aún más grandes */
+    color: var(--secondary-accent);
+    animation: fall linear infinite;
+    opacity: 0;
+    text-shadow: 0 0 12px var(--text-shadow-color);
+    will-change: transform, opacity;
+}
+
+.heart.blue-heart {
+    color: var(--tertiary-accent);
+    font-size: 45px;
+}
+
+.particle {
+    background-color: var(--glow-color);
+    border-radius: 50%;
+    width: 12px; /* Partículas más grandes y brillantes */
+    height: 12px;
+    animation: fallParticles linear infinite;
+    box-shadow: 0 0 25px var(--glow-color);
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-120px) translateX(0) scale(0.4) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: scale(1.3) rotate(30deg); /* Más rotación */
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(calc(100vh + 120px)) translateX(120px) scale(1.4) rotate(-30deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(calc(100vh + 120px)) translateX(250px) scale(1.5) rotate(0deg);
+    }
+}
+
+@keyframes fallParticles {
+    0% {
+        transform: translateY(-50px) translateX(0) scale(0.1);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.99;
+        transform: scale(1.4);
+    }
+    85% {
+        opacity: 0.99;
+        transform: translateY(calc(100vh + 50px)) translateX(50px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(calc(100vh + 50px)) translateX(100px) scale(1);
+    }
+}
+
+
+.couple-animation {
+    margin-top: 80px; /* Más espacio */
+    width: 500px; /* ¡Aún más grande y central! */
+    height: 450px;
+    background: transparent;
+    border-radius: 35px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.7); /* Sombra para que flote más */
+}
+
+/* Sección de la Propuesta */
+.proposal-section {
+    margin-top: 80px;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInSlideUp 1s ease-out forwards;
+    animation-delay: 6.5s; /* Retraso para que aparezca después del texto inicial */
+    position: relative;
+    z-index: 100;
+}
+
+.question {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4.5em; /* Grande y llamativa */
+    color: var(--glow-color);
+    text-shadow: 0 0 25px var(--secondary-accent), 0 0 45px var(--secondary-accent);
+    margin-bottom: 40px;
+}
+
+.animated-text-question span {
+    animation-delay: var(--delay);
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 60px; /* Más espacio entre botones */
+    margin-top: 50px;
+    position: relative;
+    z-index: 100;
+}
+
+.proposal-button {
+    padding: 22px 50px; /* Botones más grandes */
+    border: none;
+    border-radius: 50px;
+    font-size: 2em; /* Texto grande */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+    z-index: 101;
+}
+
+.yes-button {
+    background-color: var(--button-yes-color);
+    color: var(--text-main);
+}
+
+.yes-button:hover {
+    background-color: #6ed071;
+    transform: translateY(-12px) scale(1.1); /* Efecto de levitación más pronunciado */
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.8);
+}
+
+.no-button {
+    background-color: var(--button-no-color);
+    color: var(--text-main);
+}
+
+/* Animación del botón "No" que se escapa como un gusano */
+.no-button.moving {
+    animation: escapeWorm 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; /* Curva elástica */
+    pointer-events: none; /* Desactivar clics durante el movimiento */
+}
+
+@keyframes escapeWorm {
+    0% { transform: translate(var(--prevX), var(--prevY)) scale(1); opacity: 1; }
+    25% { transform: translate(var(--midX1), var(--midY1)) scale(0.9) rotate(20deg); }
+    50% { transform: translate(var(--midX2), var(--midY2)) scale(0.8) rotate(-25deg); opacity: 0.8; }
+    75% { transform: translate(var(--nextX), var(--nextY)) scale(0.7) rotate(10deg); opacity: 0.6; }
+    100% { transform: translate(var(--finalX), var(--finalY)) scale(0.6) rotate(0deg); opacity: 0.4; }
+}
+
+
+/* Mensaje Final Secreto */
+.final-message-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--container-bg-alpha);
+    border-radius: 40px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.6);
+    animation: fadeInScaleUp 2s ease-out forwards;
+    animation-delay: 0s; /* Aparece de inmediato al hacer clic en Sí */
+    z-index: 200;
+}
+
+.final-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5em; /* Aún más grande */
+    color: var(--text-main);
+    text-shadow: 0 0 30px var(--final-message-glow), 0 0 55px var(--final-message-glow);
+    margin-bottom: 50px;
+    animation: textGlow 1.5s ease-in-out infinite alternate; /* Brillo más intenso y rápido */
+    line-height: 1.2;
+}
+
+.final-visual-effect {
+    width: 350px; /* Tamaño del contenedor para el efecto visual */
+    height: 350px;
+    margin-bottom: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infinity-gif {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 20px; /* Bordes suaves para el GIF */
+    box-shadow: 0 0 30px rgba(255,255,255,0.8); /* Brillo alrededor del GIF */
+    animation: pulseEffect 2s infinite alternate; /* Animación de pulsación */
+}
+
+@keyframes pulseEffect {
+    from { transform: scale(1); box-shadow: 0 0 30px rgba(255,255,255,0.8); }
+    to { transform: scale(1.05); box-shadow: 0 0 45px rgba(255,255,255,1); }
+}
+
+/* Efecto de explosión de brillo (alternativa al GIF o complemento) */
+.sparkle-burst {
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: var(--glow-color);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 var(--glow-color);
+    animation: sparkleBurst 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes sparkleBurst {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+        box-shadow: 0 0 0 0 var(--glow-color);
+    }
+    50% {
+        width: 200px; /* Tamaño de la explosión */
+        height: 200px;
+        opacity: 0.8;
+        box-shadow: 0 0 50px 30px var(--glow-color);
+    }
+    100% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        box-shadow: 0 0 80px 50px transparent;
+    }
+}
+
+
+.final-signature {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    color: var(--glow-color);
+    text-shadow: 0 0 15px rgba(255,255,255,0.9);
+    margin-top: 40px;
+}
+
+
+/* Responsive adjustments para móviles y tablets */
+@media (max-width: 992px) {
+    .container {
+        padding: 40px;
+        max-width: 95%;
+    }
+    h1 {
+        font-size: 4.5em;
+    }
+    p {
+        font-size: 2.2em;
+    }
+    .question {
+        font-size: 3.5em;
+    }
+    .proposal-button {
+        font-size: 1.8em;
+        padding: 18px 40px;
+    }
+    .final-text {
+        font-size: 4em;
+    }
+    .final-signature {
+        font-size: 1.8em;
+    }
+    .couple-animation {
+        width: 400px;
+        height: 350px;
+    }
+    .final-visual-effect {
+        width: 300px;
+        height: 300px;
+    }
+    .heart, .particle {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+    }
+    h1 {
+        font-size: 3.5em;
+    }
+    p {
+        font-size: 1.8em;
+    }
+    .question {
+        font-size: 2.8em;
+    }
+    .proposal-button {
+        font-size: 1.5em;
+        padding: 15px 35px;
+    }
+    .final-text {
+        font-size: 3em;
+    }
+    .final-signature {
+        font-size: 1.5em;
+    }
+    .couple-animation {
+        width: 300px;
+        height: 250px;
+    }
+    .final-visual-effect {
+        width: 250px;
+        height: 250px;
+    }
+    .heart, .particle {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        border-radius: 30px;
+    }
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 25px;
+    }
+    p {
+        font-size: 1.2em;
+    }
+    .question {
+        font-size: 2em;
+        margin-bottom: 25px;
+    }
+    .buttons-container {
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 30px;
+    }
+    .proposal-button {
+        font-size: 1.1em;
+        padding: 12px 28px;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .final-text {
+        font-size: 2.2em;
+        margin-bottom: 30px;
+    }
+    .final-signature {
+        font-size: 1.1em;
+        margin-top: 30px;
+    }
+    .couple-animation {
+        width: 250px;
+        height: 200px;
+        margin-top: 50px;
+    }
+    .final-visual-effect {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 30px;
+    }
+    .heart, .particle {
+        font-size: 28px;
+    }
+}
+
+@media (max-height: 700px) and (max-width: 480px) { /* Ajustes para móviles pequeños y paisajes */
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1em;
+    }
+    .question {
+        font-size: 1.6em;
+    }
+    .couple-animation {
+        width: 200px;
+        height: 170px;
+        margin-top: 30px;
+    }
+    .buttons-container {
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .proposal-button {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    .final-text {
+        font-size: 1.8em;
+    }
+    .final-signature {
+        font-size: 0.9em;
+    }
+}
